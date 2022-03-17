@@ -29,7 +29,7 @@
 Just to document/mapping thought process
 
 ### Members:
-- Ashley: 
+- [Ashley](https://github.com/heyitsashleyhere) 
     - Merge and resolve conflicts and broken codes
     - Cleanup codes
     - Set localStorage
