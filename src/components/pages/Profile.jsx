@@ -63,7 +63,7 @@ const Profile = () => {
                   <section className="postfeed_content_imgtext">
 
                     {post.imageUrl ?
-                      <img className="allUserPost_image"  src={ post.imageUrl.charAt(0) === '/' ? process.env.PUBLIC_URL + `${post.imageUrl}` : post.imageUrl} alt={post.title} /> : null 
+                      <img className="allUserPost_image" src={post.imageUrl} alt={post.title} /> : null
                     }
                     {post.text ?
                       <p className='allUserPost_text'>{post.text}</p> : null
@@ -133,7 +133,7 @@ const Profile = () => {
 
               <div className="postfeed_content_subheader">
                 <h3 className="date">{post.date}</h3>
-                <h2 className="title">{post.title}</h2>@
+                <h2 className="title">{post.title}</h2>
               </div>
 
               <section className="postfeed_content">
@@ -141,7 +141,7 @@ const Profile = () => {
                 <section className="postfeed_content_imgtext">
 
                   {post.imageUrl ?
-                    <img className="allUserPost_image"  src={ post.imageUrl.charAt(0) === '/' ? process.env.PUBLIC_URL + `${post.imageUrl}` : post.imageUrl} alt={post.title} /> : null
+                    <img className="allUserPost_image" src={post.imageUrl.charAt(0) === '/' ? process.env.PUBLIC_URL + `${post.imageUrl}` : post.imageUrl} alt={post.title} /> : null
                   }
                   {post.text ?
                     <p className='allUserPost_text'>{post.text}</p> : null

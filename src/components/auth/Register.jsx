@@ -5,42 +5,37 @@ import { NavLink, Navigate } from 'react-router-dom';
 // Contexts:
 import { LoginRegisterContext } from "../context/LoginRegisterContext";
 import { UserContext } from "../context/UserContext";
-// Components:
-import Loader from "../Loader";
 // Styling:
 import { AiOutlineEyeInvisible, AiOutlineEye } from "react-icons/ai";
 import { TiTick, TiTimes } from "react-icons/ti";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import './Register.scss'
 import { motion } from "framer-motion";
-import hexImages from "../../hex/hexagon";
+import hexImages from "../../theme/hex/hexagon";
 
 //ANIMATIONS
-const pageTransition = {
+// page == form
+const pageTransition = { 
   type: "tween",
   ease: "anticipate",
   duration: .75
 };
-
-//Hexagon Animation
 const pageVariants = {
   initial: {
     opacity: 0,
     x: "50vw",
-    scale: 1
   },
   in: {
     opacity: 1,
     x: 0,
-    scale: 1
   },
   out: {
     opacity: 0,
     x: "50vw",
-    scale: 1,
   }
-};
+}
 
+//Hexagon container to allow the children to start their animation apart
 const container = {
   show: {
     transition: {
@@ -48,6 +43,7 @@ const container = {
     }
   }
 }
+//item = hexagons
 const item = {
   hidden: {
     opacity: 0,
@@ -67,7 +63,7 @@ const item = {
     transition: {
       ease: [.6, .01, -0.5, .95],
       duration: 1,
-      delay: .3
+      delay: 0.3
     }
   }
 }
@@ -84,14 +80,14 @@ const ideas = {
     transition: {
       delayChildren: 0.6,
       staggerChildren: 0.04,
-      staggerDirection: -1,
+      staggerDirection: -1, //it's coming from left to right
     },
   },
   exit: {
     opacity: 0,
     y: 400,
     transition: {
-      duration: 1,
+      duration: 1
     }
   }
 };
@@ -185,13 +181,13 @@ export default function Register() {
       setUserExist(false)
     }
     setValidName(USER_REGEX.test(userName));
-  }, [userName])
+  }, [userName, validName, userExist])
   // CHECK PASSWORD =========================
   useEffect(() => {
     setValidPwd(PWD_REGEX.test(pwd));
     const match = pwd === matchPwd; //Boolean
     setValidMatch(match);
-  }, [pwd, matchPwd])
+  }, [pwd, matchPwd, validPwd])
   // CHECK EMAIL ============================
   const allUsersEmail = users.map(user => user.email)
   useEffect(() => {
@@ -207,8 +203,8 @@ export default function Register() {
     e.preventDefault()
     setUsers([...users, { userid: users.length + 1, username: userName, avatar: `https://robohash.org/${userName}`, password: pwd }]);
     setSuccess(true)
-    setLoading(true)
-    setTimeout(() => { setLoading(false) }, 2000)
+    // setLoading(true)
+    // setTimeout(() => { setLoading(false) }, 2000)
   }
 
   useEffect(() => {
@@ -250,59 +246,60 @@ export default function Register() {
 
 
   return (
-    <motion.section className="Register"
+    <section className="Register"
       initial='hidden'
       animate='show'
       exit='exit'
     >
-      <motion.section className='logo'>
+      <section className='logo'>
 
-        <motion.section className="hex-container"
+        <section className="hex-container"
           variants={container}
         >
           {hexImages.map((image, i) =>
             <motion.img key={`registerHexImages-${i}`} variants={item} className={image.title} src={image.src} alt={image.title} />
           )}
-        </motion.section>
+        </section>
 
-        <motion.div className="slogan-container"
+        <div className="slogan-container"
           initial='initial'
           animate='animate'
           exit='exit'
         >
-          <motion.span className="ideas" variants={ideas}>
-            <motion.span variants={letter}>I</motion.span>
-            <motion.span variants={letter}>d</motion.span>
-            <motion.span variants={letter}>e</motion.span>
-            <motion.span variants={letter}>a</motion.span>
-            <motion.span variants={letter}>s</motion.span>
-          </motion.span>
+          <span className="ideas" variants={ideas}>
+            <span variants={letter}>I</span>
+            <span variants={letter}>d</span>
+            <span variants={letter}>e</span>
+            <span variants={letter}>a</span>
+            <span variants={letter}>s</span>
+          </span>
 
-          <motion.span className="come" variants={come}>
-            <motion.span variants={letter}>C</motion.span>
-            <motion.span variants={letter}>o</motion.span>
-            <motion.span variants={letter}>m</motion.span>
-            <motion.span variants={letter}>e</motion.span>
-          </motion.span>
+          <span className="come" variants={come}>
+            <span variants={letter}>C</span>
+            <span variants={letter}>o</span>
+            <span variants={letter}>m</span>
+            <span variants={letter}>e</span>
+          </span>
 
-          <motion.span className="together" variants={together}>
-            <motion.span variants={letter}>T</motion.span>
-            <motion.span variants={letter}>o</motion.span>
-            <motion.span variants={letter}>g</motion.span>
-            <motion.span variants={letter}>e</motion.span>
-            <motion.span variants={letter}>t</motion.span>
-            <motion.span variants={letter}>h</motion.span>
-            <motion.span variants={letter}>e</motion.span>
-            <motion.span variants={letter}>r</motion.span>
-          </motion.span>
-        </motion.div>
+          <span className="together" variants={together}>
+            <span variants={letter}>T</span>
+            <span variants={letter}>o</span>
+            <span variants={letter}>g</span>
+            <span variants={letter}>e</span>
+            <span variants={letter}>t</span>
+            <span variants={letter}>h</span>
+            <span variants={letter}>e</span>
+            <span variants={letter}>r</span>
+          </span>
+        </div>
 
-      </motion.section>
+      </section>
 
       {success
-        ? (loading
-          ? <Loader />
-          : <Navigate to="/login" />)
+        ? 
+        // (loading ? <Loader /> :
+          // window.location.replace('/login') 
+          <Navigate to="/login" />
         :
         <motion.section
           initial="initial"
@@ -431,13 +428,13 @@ export default function Register() {
 
             <section className="allready-register">
               <p className="allreadyText">Already registered?</p>
-              <NavLink className="loginNavLink hover-underline-animation" to='/login'> Login</NavLink>
+              <NavLink className="loginNavLink hover-underline-animation" to='/login'>Login</NavLink>
             </section>
           </section>
 
         </motion.section >
       }
-    </motion.section >
+    </section >
   )
 
 }
