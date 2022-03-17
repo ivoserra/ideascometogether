@@ -8,8 +8,7 @@
 - 3-4 days
 - Due: 15.03.2022
 
-## NOTE: 
-- It's not responsive, please view in full screen (NO BOOTSTRAP)
+## NOTE: - It's not responsive, please view in full screen (NO BOOTSTRAP)
 
 ## What we currently achieved:
 - Social (users can interact: commenting)
